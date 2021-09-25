@@ -1,0 +1,43 @@
+<h1 class="home-title">Books</h1>
+
+<% if @book.errors.any? %>
+    <%= @book.errors.count %>errors prohibited this book from being saved:
+    <% @book.errors.full_messages.each do |message| %>
+     <li><%= message %></li>
+    <% end %>
+<% end %>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Body</th>
+            <th colspan="3"></th>
+        </tr>
+    </thead>
+    <tbody>
+<% @books.each do |book| %>
+    <tr>
+      <th><%= book.title %></th>
+      <th><%= book.body %></th>
+      <th><%= link_to "Show", book_path(book.id) %></th>
+      <th><%= link_to "Edit", edit_book_path(book.id)%></th>
+      <th><%= link_to "Destroy", book_path(book.id),method: :delete, data: {confirm: "削除しますか？"} %></th>
+    </tr>
+<% end %>
+
+
+    </tbody>
+</table>
+
+<%= form_with model:@book, local:true do |f| %>
+<h2>New book</h2>
+<h4>Title</h4>
+  <%= f.text_field :title %>
+<h4>Body</h4>
+  <%= f.text_area :body %>
+  <h4></h4>
+  <%= f.submit "Create Book" %>
+
+
+<% end %>
